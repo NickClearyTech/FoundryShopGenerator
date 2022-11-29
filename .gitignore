@@ -1,3 +1,6 @@
+*.idea/
+*.foundrydata/
+
 # Logs
 logs
 *.log
