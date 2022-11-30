@@ -1,0 +1,10 @@
+{
+    "SHOP_GEN": {
+        "settings": {
+            "potion_compendium": {
+                "name": "Potion Compendium",
+                "hint": "Name of the compendium which contains all possible potions to be present in a potion shop."
+            }
+        }
+    }
+}
