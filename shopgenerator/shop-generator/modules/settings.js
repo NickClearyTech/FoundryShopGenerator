@@ -14,7 +14,7 @@ export default class Settings {
             {
                 name: "SHOP_GEN.settings.potion_compendium.name",
                 hint: "SHOP_GEN.settings.potion_compendium.hint",
-                scope: "client",
+                scope: "world",
                 requiresReload: false,
                 type: String,
                 choices: getCompendiumsOfType("item"),
@@ -27,7 +27,7 @@ export default class Settings {
             {
                 name: "SHOP_GEN.settings.spell_compendium.name",
                 hint: "SHOP_GEN.settings.spell_compendium.hint",
-                scope: "client",
+                scope: "world",
                 requiresReload: false,
                 type: String,
                 choices: getCompendiumsOfType("item"),
@@ -40,7 +40,7 @@ export default class Settings {
             {
                 name: "SHOP_GEN.settings.magic_item_compendium.name",
                 hint: "SHOP_GEN.settings.magic_item_compendium.hint",
-                scope: "client",
+                scope: "world",
                 requiresReload: false,
                 type: String,
                 choices: getCompendiumsOfType("item"),
@@ -53,12 +53,24 @@ export default class Settings {
             {
                 name: "SHOP_GEN.settings.equipment_compendium.name",
                 hint: "SHOP_GEN.settings.equipment_compendium.hint",
-                scope: "client",
+                scope: "world",
                 requiresReload: false,
                 type: String,
                 choices: getCompendiumsOfType("item"),
                 config: true,
                 default: ""
+            }
+        );
+        // A setting to allow for the user to specify whether to use the Discerning Merchant's Price Guide
+        game.settings.register(Constants.MODULE_ID, Constants.settings.use_merchant,
+            {
+                name: "SHOP_GEN.settings.use_merchant_guide.name",
+                hint: "SHOP_GEN.settings.use_merchant_guide.hint",
+                scope: "world",
+                requiresReload: false,
+                type: Boolean,
+                default: true,
+                config: true
             }
         );
     }

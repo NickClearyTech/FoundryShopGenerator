@@ -1,22 +1,25 @@
 import Settings from "./settings.js";
-import {getCompendiumsOfType} from "./utils/compendium_utils.js";
+import {getCompendiumsOfType, getFreshMapByRarity} from "./utils/compendium_utils.js";
+import {mapCompendiumContentsToRarity} from "./compendium.js";
+import {generateItemShop} from "./generator.js";
 
 function successcallback(result) {
     result.forEach(element => console.log(element));
 }
 
 function failcallback(result) {
-    conosle.log("Sad :(");
+    console.log("Sad :(");
 }
-
-Hooks.on("init", function () {
-    console.log("This code runs once the Foundry VTT software begins its initialization workflow.");
-});
 
 Hooks.on("ready", async function () {
     console.log("-------This code runs once core initialization is ready and game data is available.");
     new Settings().registerSettings();
-    console.log(getCompendiumsOfType("item"));
+    const data = await foundry.utils.fetchJsonWithTimeout("modules/shop-generator/modules/presets.json");
+    await generateItemShop(data["potion"]["city"], "potion");
+    // const json = await response.json();
+    // console.log(json);
+    // const thingies = await game.packs.get("world.potions").getDocuments();
+    // console.log(thingies);
     // console.log(game.i18n.localize('SHOP_GEN.settings.potion_compendium.Hint'));
     // let collections = game.collections;
     // console.log("---------");
@@ -55,5 +58,5 @@ Hooks.on("renderItemDirectory", (itemDirectory, html) => {
     console.log(itemDirectory);
     console.log("hi there!");
     const itemHeaders = html.find(`[class="directory-header"]`)
-    itemHeaders.append("<p>LMAO HI THERE</p>")
+    itemHeaders.append("<p>LOL HI</p>")
 });
