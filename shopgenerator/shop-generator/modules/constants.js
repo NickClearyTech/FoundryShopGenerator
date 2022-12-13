@@ -20,6 +20,15 @@ export default class Constants {
         potion_compendium: "PotionCompendium",
         spell_compendium: "SpellCompendium",
         magic_items_compendium: "MagicItemCompendium",
-        equipment_compendium: "EquipmentCompendium"
+        equipment_compendium: "EquipmentCompendium",
+        use_merchant: "UseDiscerningMerchantGuide"
+    }
+
+    static rarities = {
+        common: "Common",
+        uncommon: "Uncommon",
+        rare: "Rare",
+        veryrare: "Very Rare",
+        legendary: "Legendary"
     }
 }
