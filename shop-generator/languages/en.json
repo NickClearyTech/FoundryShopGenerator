@@ -17,10 +17,13 @@
                 "name": "Equipment Compendium",
                 "hint": "Name of the compendium which contains all possible equipment to be present in an equipment shop."
             },
-            "use_merchant_guide": {
-                "name": "Use Discerning Merchant's Guide?",
-                "hint": "If true, use the Discerning Merchant's Price Guide to set prices for DnD 5e"
+            "price_override": {
+                "name": "Price Overrides",
+                "hint": "Specify a valid JSON string containing price overrides. See <here> for price override JSON string format"
             }
+        },
+        "UI": {
+            "items-button": "Shop Generator"
         }
     }
 }

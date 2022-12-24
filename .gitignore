@@ -1,5 +1,6 @@
 *.idea/
 *.foundrydata/
+*.fleet
 
 # Logs
 logs
