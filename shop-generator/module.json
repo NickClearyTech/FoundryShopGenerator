@@ -1,6 +1,6 @@
 {
   "id": "shop-generator",
-  "title": "Shop Generator",
+  "title": "Nickle's Shop Generator",
   "description": "A simple module to generate shops",
   "authors": [
     {
@@ -25,7 +25,7 @@
   "styles": [
     "styles/shop-gen.css"
   ],
-  "name": "Shop Generator",
+  "name": "Nickle's Shop Generator",
   "minimumCoreVersion": "10",
-  "author": "Nicholas Cleary"
+  "author": "Nick Cleary"
 }

@@ -1,4 +1,4 @@
-import Constants from "./constants.js";
+import {Constants} from "./values.js";
 import {getCompendiumsOfType} from "./utils/compendium_utils.js";
 
 /**
@@ -14,7 +14,7 @@ export default class Settings {
             {
                 name: "SHOP_GEN.settings.potion_compendium.name",
                 hint: "SHOP_GEN.settings.potion_compendium.hint",
-                scope: "world",
+                scope: "user",
                 requiresReload: false,
                 type: String,
                 choices: getCompendiumsOfType("item"),
@@ -27,7 +27,7 @@ export default class Settings {
             {
                 name: "SHOP_GEN.settings.spell_compendium.name",
                 hint: "SHOP_GEN.settings.spell_compendium.hint",
-                scope: "world",
+                scope: "user",
                 requiresReload: false,
                 type: String,
                 choices: getCompendiumsOfType("item"),
@@ -36,11 +36,11 @@ export default class Settings {
             }
         );
         // A setting for the user to select which compendium contains magic items to be present in magic shops
-        game.settings.register(Constants.MODULE_ID, Constants.settings.magic_items_compendium,
+        game.settings.register(Constants.MODULE_ID, Constants.settings.magic_item_compendium,
             {
                 name: "SHOP_GEN.settings.magic_item_compendium.name",
                 hint: "SHOP_GEN.settings.magic_item_compendium.hint",
-                scope: "world",
+                scope: "user",
                 requiresReload: false,
                 type: String,
                 choices: getCompendiumsOfType("item"),
@@ -53,7 +53,7 @@ export default class Settings {
             {
                 name: "SHOP_GEN.settings.equipment_compendium.name",
                 hint: "SHOP_GEN.settings.equipment_compendium.hint",
-                scope: "world",
+                scope: "user",
                 requiresReload: false,
                 type: String,
                 choices: getCompendiumsOfType("item"),
@@ -61,16 +61,15 @@ export default class Settings {
                 default: ""
             }
         );
-        // A setting to allow for the user to specify whether to use the Discerning Merchant's Price Guide
-        game.settings.register(Constants.MODULE_ID, Constants.settings.use_merchant,
+        game.settings.register(Constants.MODULE_ID, Constants.settings.price_override,
             {
-                name: "SHOP_GEN.settings.use_merchant_guide.name",
-                hint: "SHOP_GEN.settings.use_merchant_guide.hint",
-                scope: "world",
-                requiresReload: false,
-                type: Boolean,
-                default: true,
-                config: true
+                name: "SHOP_GEN.settings.price_override.name",
+                hint: "SHOP_GEN.settings.price_override.hint",
+                scope: "user",
+                requiresReload: true,
+                type: String,
+                config: true,
+                default: ""
             }
         );
     }

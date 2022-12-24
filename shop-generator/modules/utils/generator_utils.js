@@ -1,3 +1,14 @@
+import { uiLogging } from "./logging.js";
+
+// A function to randomly shuffle an array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 /*
 A simple function to get a random integer between two numbers (min included, max excluded)
  */
@@ -10,12 +21,15 @@ A function to get a random list of items based upon an input list, and a number 
 Duplicates are allowed.
  */
 export function getRandomItemsWithDuplicates(itemArray, numItems) {
-    const itemsToReturn = [];
-    const sortedItems = itemArray.sort(() => Math.random());
+    const itemsToReturn = {};
     for (let i = 0; i<numItems; i++) {
         // Get a random item, push it to the items to return array
         let randomNumber = getRandomInt(0, itemArray.length);
-        itemsToReturn.push(sortedItems[randomNumber]);
+        if (!itemsToReturn.hasOwnProperty(itemArray[randomNumber].name)) {
+            itemsToReturn[`${itemArray[randomNumber].name}`] = {price: 0, quantity: 1, value: itemArray[randomNumber]};
+        } else {
+            itemsToReturn[`${itemArray[randomNumber].name}`]["quantity"]++;
+        }
     }
     return itemsToReturn;
 }
@@ -25,8 +39,31 @@ A function to get a random list of items based upon an input list, and a number 
 Duplicates are not allowed. If the numItems is larger than the number of possible items, a warning will be thrown, and the entire possible list will be returned.
  */
 export function getRandomItemsWithoutDuplication(itemArray, numItems) {
-    if (itemArray.length() > numItems) {
-        console.warn(`Length of item array is ${itemArray.length} less than the number of items requested, ${numItems}`)
+    // Warn if more items are requested than exist
+    if (itemArray.length > numItems) {
+        uiLogging(`Length of item array is ${itemArray.length} less than the number of items requested, ${numItems}`, "warn")
     }
-    return itemArray.sort(() => Math.random()).slice(0, numItems);
+    // Get the random list of items, then convert to an object containing the items, each having a quantity of 1
+    const itemsList = shuffleArray(itemArray);
+    const itemsToReturn = {};
+    for (const item of itemsList.slice(0, numItems)) {
+        itemsToReturn[`${item.name}`] = {price: 0, quantity: 1, value: item}
+    }
+    return itemsToReturn;
+}
+
+/* 
+A function to get exactly one item of a specified rarity, and allows specifying a percent chance for this rarity to have one item present in the shop (this number is specified as a decimal)
+*/
+export function getRandomItemWithChance(itemArray, chance) {
+    const itemsToReturn = {};
+    // Get a randum number, and if below the number of chance, return empty object
+    const randomNumber = Math.random();
+    if (randomNumber > chance) {
+        return itemsToReturn;
+    }
+    // Get the random element, and return it
+    const randomElement = getRandomInt(0, itemArray.length);
+    itemsToReturn[`${itemArray[randomElement].name}`] = {price: 0, quantity: 1, value: itemArray[randomElement]};
+    return itemsToReturn;
 }

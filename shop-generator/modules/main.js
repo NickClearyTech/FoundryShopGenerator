@@ -2,20 +2,18 @@ import Settings from "./settings.js";
 import {getCompendiumsOfType, getFreshMapByRarity} from "./utils/compendium_utils.js";
 import {mapCompendiumContentsToRarity} from "./compendium.js";
 import {generateItemShop} from "./generator.js";
+import {Constants,RuntimeValues} from "./values.js";
+import {setDefaultPresets} from "./utils/player_config.js";
+import {initializePricingOverride} from "./utils/pricing.js";
 
-function successcallback(result) {
-    result.forEach(element => console.log(element));
-}
-
-function failcallback(result) {
-    console.log("Sad :(");
-}
 
 Hooks.on("ready", async function () {
-    console.log("-------This code runs once core initialization is ready and game data is available.");
     new Settings().registerSettings();
-    const data = await foundry.utils.fetchJsonWithTimeout("modules/shop-generator/modules/presets.json");
-    await generateItemShop(data["potion"]["city"], "potion");
+    await setDefaultPresets();
+    initializePricingOverride();
+    console.log(RuntimeValues.priceOverride);
+    // const data = await foundry.utils.fetchJsonWithTimeout("modules/shop-generator/modules/presets.json");
+    // await generateItemShop(data["presets"]["spell"]["metropolis"], "spell");
     // const json = await response.json();
     // console.log(json);
     // const thingies = await game.packs.get("world.potions").getDocuments();
@@ -55,8 +53,10 @@ Hooks.on("ready", async function () {
 });
 
 Hooks.on("renderItemDirectory", (itemDirectory, html) => {
-    console.log(itemDirectory);
-    console.log("hi there!");
     const itemHeaders = html.find(`[class="directory-header"]`)
-    itemHeaders.append("<p>LOL HI</p>")
+    const tooltip = game.i18n.localize("SHOP-GEN.UI.items-button")
+    itemHeaders.append(`<button type='button' class='shop-generator-icon-button flex0' title='${tooltip}'><i class='fa-solid fa-shield'> Shop Generator</button>`);
+    html.on("click", ".shop-generator-icon-button", (event) => {
+        console.log("clicked");
+    });
 });
