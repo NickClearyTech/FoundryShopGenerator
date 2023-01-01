@@ -1,0 +1,36 @@
+<form>
+    <h2>Shop Generator</h2>
+    <div class="flexcol shop-gen">
+        <div class="flexrow">
+            <label for="shopType">Select a shop type</label>
+            <select id="shopType" name="Shop Type" data-action="shopType">
+                <option value=""></option> <!-- We provide a blank option to serve as the 'default' -->
+               {{# each validShopTypes }}
+                   {{#if (eq ../shopType @key) }}
+                       <option value="{{@key}}" selected>{{displayName}}</option>
+                   {{else}}
+                       <option value="{{@key}}">{{displayName}}</option>
+                   {{/if}}
+               {{/each}}
+            </select>
+        </div>
+    </div>
+    {{#if shopType}}
+        <div class="flexcol shop-gen">
+            <div class="flexrow">
+                <label for="shopPreset">Select a preset</label>
+                <select id="shopPreset" name="Shop Preset" data-action="shopPreset">
+                    <option value=""></option> <!-- We provide a blank option to serve as the 'default' -->
+                    {{# each validPresets }}
+                        {{#if (eq ../preset @key) }}
+                            <option value="{{@key}}" selected>{{displayName}}</option>
+                        {{else}}
+                            <option value="{{@key}}">{{displayName}}</option>
+                        {{/if}}
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+    {{/if}}
+    <button type="button" data-action="generate">Generate</button>
+</form>

@@ -5,6 +5,9 @@
         },
         "Potion of Healing": {
             "price": 50
+        },
+        "Potion of Gaseous Form":{
+            "price": 1500
         }
     },
     "spell": {

@@ -40,8 +40,27 @@ export class Constants {
 
     static validShopTypes = ["spell", "potion", "magic_item", "equipment"];
 
+    static validShopTypes = {
+        "spell": {
+            displayName: "Spell"
+        },
+        "potion": {
+            displayName: "Potion"
+        },
+        "magic_item": {
+            displayName: "Magic Item"
+        },
+        "equipment": {
+            displayName: "Equipment"
+        }
+    }
+
     static templates = {
         shop_generator: `modules/${this.MODULE_ID}/templates/shop-generator.hbs`
+    };
+
+    static shopGenTemplateIDs = {
+      shopType: "shopType"
     };
 
     static spellLevels = {
@@ -64,4 +83,9 @@ export class RuntimeValues {
     // We assume the price override to be invalid to be safe
     static validPriceOverride = false;
     static priceOverride = null;
+
+    // Values used for shop generation
+    static selectedShopType = null;
+    static selectedPreset = null;
+    static validPresets = null;
 }

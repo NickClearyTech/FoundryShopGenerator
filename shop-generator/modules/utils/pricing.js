@@ -28,7 +28,7 @@ export function checkValidPriceOverride() {
     let hasErrors = false;
     // Iterate through each key (should be only four of these max, one for spells, equipment, magic items, and potions)
     for (const key of Object.keys(jsonObject)) {
-        if (!Constants.validShopTypes.includes(key)) {
+        if (!Object.keys(Constants.validShopTypes).includes(key)) {
             consoleLogging(`${key} is not one of the valid shop types: ${Constants.validShopTypes.toString()}`, "warn");
             hasWarnings = true;
             continue;
@@ -79,10 +79,48 @@ export function getPriceOverrideJSON() {
     return JSON.parse(game.settings.get(Constants.MODULE_ID, Constants.settings.price_override));
 }
 
-
+/**
+ * A helper function that checks if pricing override json is valid, and then if it is, sets
+ * a variable in the RunTime values to be the json -> object value
+ */
 export function initializePricingOverride() {
     let validPricing = checkValidPriceOverride();
     if (validPricing) {
         RuntimeValues.priceOverride = getPriceOverrideJSON();
     }
+}
+
+/**
+ * Returns an items price as an integer, or -1 if no price is found
+ * @param item Items as an object
+ * @param type Type as a string
+ * @returns {number|*} Price of item, or -1 if it cannot be found
+ */
+export function getObjectPrice(item, type) {
+    // If we have a valid price override
+    if (RuntimeValues.validPriceOverride && Object.keys(RuntimeValues.priceOverride).includes(type)) {
+        // If item is a spell
+        if (type === "spell") {
+            // Check if the spells include a price of this level
+            if(
+                Object.keys(RuntimeValues.priceOverride.spell).includes(item.system.level.toString())
+            ) {
+                // Return the price of that spell
+                return RuntimeValues.priceOverride.spell[item.system.level.toString()].price;
+            }
+        } else {
+            if (
+                Object.keys(RuntimeValues.priceOverride[type]).includes(item.name.toString())
+            ) {
+                // return the price of that item
+                return RuntimeValues.priceOverride[type][item.name.toString()].price;
+            }
+        }
+    }
+    // If the price override isn't valid or the price doesn't exist, then we try to return item price
+    if (item.system.price !== null) {
+        return item.system.price;
+    }
+    // If the price is null, then return -1 to signify we don't have a price
+    return -1
 }
