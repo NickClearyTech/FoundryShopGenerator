@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
-  "presets:": {
+  "presets": {
     "potion": {
       "metropolis": {
         "name": "Metropolis",
