@@ -16,8 +16,7 @@ Hooks.on("renderItemDirectory", (itemDirectory, html) => {
     const tooltip = game.i18n.localize("SHOP-GEN.UI.items-button")
     itemHeaders.append(`<button type='button' class='shop-generator-icon-button flex0' title='${tooltip}'><i class='fa-solid fa-shield'> Shop Generator</button>`);
     html.on("click", ".shop-generator-icon-button", (event) => {
-        console.log("clicked");
         const shopgen = new ShopGenerator();
-        shopgen.render(true, {});
+        shopgen.render(true, {width: 400});
     });
 });
