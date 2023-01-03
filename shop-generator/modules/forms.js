@@ -1,5 +1,6 @@
 import {Constants, RuntimeValues} from "./values.js";
-import {getValidPresetsOfType} from "./utils/presets.js";
+import {getValidPresetsOfType, getPreset} from "./utils/presets.js";
+import {consoleLogging} from "./utils/logging.js";
 
 export class ShopGenerator extends FormApplication {
     /**
@@ -27,16 +28,23 @@ export class ShopGenerator extends FormApplication {
     getData(options) {
         const values = {
             preset: RuntimeValues.selectedPreset,
+            presetID: RuntimeValues.selectedPresetID,
             validShopTypes: Constants.validShopTypes,
             shopType: RuntimeValues.selectedShopType,
             validPresets: RuntimeValues.validPresets,
+            spellLevels: Constants.spellLevels,
+            rarities: Constants.rarities,
         };
-        console.log(values);
         return values;
     }
 
     async _handleButtonClick(event) {
-        console.log("hi there");
+        const selectedElement = $(event.currentTarget);
+        const selectedValue = selectedElement[0].value;
+        if (selectedElement[0].id == "generate") {
+            console.log("YASS QUEEN");
+            console.log($("#shopType").val())
+        }
     }
 
     async _handleSelect(event) {
@@ -55,8 +63,27 @@ export class ShopGenerator extends FormApplication {
             if (selectedValue === RuntimeValues.selectedShopType) {
                 return;
             }
+            // Set all values
             RuntimeValues.selectedShopType = selectedValue;
             RuntimeValues.validPresets = getValidPresetsOfType(selectedValue);
+            RuntimeValues.selectedPresetID = null; // We set the selected preset values back to their defaults, in order to prevent any confusion
+            RuntimeValues.selectedPreset = null;
+            this.render();
+        } else if (selectedElement[0].id === Constants.shopGenTemplateIDs.shopPreset) {
+            // If the user selects back to the default option, we want to not display anything else, as this could cause issues. So set other values back to defaults
+            if (selectedValue === "") {
+                RuntimeValues.selectedPreset = null;
+                RuntimeValues.selectedPresetID = null;
+                this.render();
+                return;
+            }
+            // If the user just changed it back it's existing value, we don't care. Do nothing.
+            if (selectedValue === RuntimeValues.selectedPresetID) {
+                return;
+            }
+            // Set all values
+            RuntimeValues.selectedPresetID = selectedValue;
+            RuntimeValues.selectedPreset = getPreset(RuntimeValues.selectedShopType, selectedValue);
             this.render();
         }
     }
@@ -66,7 +93,7 @@ export class ShopGenerator extends FormApplication {
      */
     activateListeners(html) {
         super.activateListeners(html);
-        // html.on("click", "[data-action]", this._handleButtonClick.bind(this));
+        html.on("click", "[data-action]", this._handleButtonClick.bind(this));
         html.on("change", "[data-action]", this._handleSelect.bind(this));
     }
 }

@@ -60,7 +60,8 @@ export class Constants {
     };
 
     static shopGenTemplateIDs = {
-      shopType: "shopType"
+        shopType: "shopType",
+        shopPreset: "shopPreset"
     };
 
     static spellLevels = {
@@ -88,4 +89,5 @@ export class RuntimeValues {
     static selectedShopType = null;
     static selectedPreset = null;
     static validPresets = null;
+    static selectedPresetID = null;
 }

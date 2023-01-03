@@ -59,7 +59,7 @@ export function getRandomItemWithChance(itemArray, chance) {
     const itemsToReturn = {};
     // Get a randum number, and if below the number of chance, return empty object
     const randomNumber = Math.random();
-    if (randomNumber > chance) {
+    if (chance > randomNumber) {
         return itemsToReturn;
     }
     // Get the random element, and return it

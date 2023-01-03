@@ -13,3 +13,16 @@ export function getValidPresetsOfType(type) {
     }
     return presets;
 }
+
+/**
+ * A helper function that returns the specified preset as an object
+ * @param type Shop Type
+ * @param presetID The ID of the preset to be returned
+ * @returns {{Object} Preset object
+ */
+export function getPreset(type, presetID) {
+    let preset = game.users.current.getFlag(Constants.MODULE_ID, Constants.playerFlag)["presets"][type][presetID];
+    delete preset.name; // We delete the "name" key because it's useless in terms of rendering our options
+    delete preset.default; // Same thing with the "default" attribute
+    return preset;
+}
