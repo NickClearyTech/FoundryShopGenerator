@@ -1,6 +1,8 @@
 import {Constants, RuntimeValues} from "./values.js";
 import {getValidPresetsOfType, getPreset} from "./utils/presets.js";
 import {consoleLogging} from "./utils/logging.js";
+import {generateValidPresetObjectFromForm} from "./utils/generator_utils.js";
+import {generateItemShop} from "./generator.js";
 
 export class ShopGenerator extends FormApplication {
     /**
@@ -41,9 +43,9 @@ export class ShopGenerator extends FormApplication {
     async _handleButtonClick(event) {
         const selectedElement = $(event.currentTarget);
         const selectedValue = selectedElement[0].value;
-        if (selectedElement[0].id == "generate") {
-            console.log("YASS QUEEN");
-            console.log($("#shopType").val())
+        if (selectedElement[0].id == "generate") { // If the generate button is clicked
+            const shopSettings = generateValidPresetObjectFromForm($("#shopType").val());
+            await generateItemShop(shopSettings, $("#shopType").val());
         }
     }
 

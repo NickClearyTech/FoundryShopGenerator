@@ -1,4 +1,5 @@
 import { uiLogging } from "./logging.js";
+import {Constants} from "../values.js";
 
 // A function to randomly shuffle an array
 function shuffleArray(array) {
@@ -59,11 +60,36 @@ export function getRandomItemWithChance(itemArray, chance) {
     const itemsToReturn = {};
     // Get a randum number, and if below the number of chance, return empty object
     const randomNumber = Math.random();
-    if (chance > randomNumber) {
+    if (chance < randomNumber) {
         return itemsToReturn;
     }
     // Get the random element, and return it
     const randomElement = getRandomInt(0, itemArray.length);
     itemsToReturn[`${itemArray[randomElement].name}`] = {price: 0, quantity: 1, value: itemArray[randomElement]};
     return itemsToReturn;
+}
+
+export function generateValidPresetObjectFromForm(shopType) {
+    let preset = {};
+    let iterator = null;
+    if (shopType == "spell") {
+        iterator = Object.keys(Constants.spellLevels);
+    } else {
+        iterator = Object.keys(Constants.rarities);
+    }
+    for (const level of iterator) {
+        const isChance = $(`#${level}-type-chance`).is(":checked");
+        preset[level] = {}
+        if (isChance) {
+            preset[level]["type"] = "chance";
+            preset[level]["allow_duplicates"] = false;
+            preset[level]["chance"] = $(`#${level}-chance`).val(); /* TODO: More validations for the values here */
+        } else {
+            preset[level]["type"] = "range";
+            preset[level]["allow_duplicates"] = $(`#${level}-range-allow-duplicates`).is(":checked");
+            preset[level]["min"] = $(`#${level}-range-min`).val();
+            preset[level]["max"] = $(`#${level}-range-max`).val();
+        }
+    }
+    return preset;
 }
