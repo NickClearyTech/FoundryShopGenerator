@@ -1,31 +1,31 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.3",
   "presets": {
     "potion": {
       "metropolis": {
         "name": "Metropolis",
         "default": true,
         "common": {
-          "min": 7,
-          "max": 20,
+          "min": 40,
+          "max": 50,
           "allow_duplicates": true,
           "type": "range"
         },
         "uncommon": {
-          "min": 4,
-          "max": 10,
+          "min": 10,
+          "max": 20,
           "allow_duplicates": true,
           "type": "range"
         },
         "rare": {
-          "min": 3,
-          "max": 8,
+          "min": 5,
+          "max": 10,
           "allow_duplicates": true,
           "type": "range"
         },
         "veryrare": {
-          "min": 1,
-          "max": 3,
+          "min": 3,
+          "max": 5,
           "allow_duplicates": true,
           "type": "range"
         },
@@ -46,13 +46,13 @@
           "type": "range"
         },
         "uncommon": {
-          "min": 3,
-          "max": 7,
+          "min": 5,
+          "max": 10,
           "allow_duplicates": true,
           "type": "range"
         },
         "rare": {
-          "min": 2,
+          "min": 3,
           "max": 5,
           "allow_duplicates": true,
           "type": "range"
@@ -74,8 +74,8 @@
         "name": "Town",
         "default": true,
         "common": {
-          "min": 2,
-          "max": 5,
+          "min": 5,
+          "max": 10,
           "allow_duplicates": true,
           "type": "range"
         },
@@ -107,7 +107,7 @@
         "default": true,
         "common": {
           "min": 1,
-          "max": 3,
+          "max": 5,
           "allow_duplicates": true,
           "type": "range"
         },
@@ -129,7 +129,7 @@
         "legendary": {
           "type": "chance",
           "allow_duplicates": false,
-          "chance": 0.05
+          "chance": 0.03
         }
       }
     },
@@ -138,13 +138,13 @@
         "name": "Metropolis",
         "default": true,
         "0": {
-          "min": 10,
-          "max": 20,
+          "min": 20,
+          "max": 30,
           "allow_duplicates": true,
           "type": "range"
         },
         "1": {
-          "min": 10,
+          "min": 15,
           "max": 20,
           "allow_duplicates": true,
           "type": "range"
@@ -196,6 +196,191 @@
           "max": 2,
           "allow_duplicates": true,
           "type": "range"
+        }
+      },
+      "city": {
+        "name": "City",
+        "default": true,
+        "0": {
+          "min": 10,
+          "max": 25,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "1": {
+          "min": 10,
+          "max": 15,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "2": {
+          "min": 6,
+          "max": 8,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "3": {
+          "min": 4,
+          "max": 6,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "4": {
+          "min": 4,
+          "max": 6,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "5": {
+          "min": 4,
+          "max": 6,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "6": {
+          "min": 3,
+          "max": 5,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "7": {
+          "min": 2,
+          "max": 4,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "8": {
+          "min": 1,
+          "max": 3,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "9": {
+          "min": 1,
+          "max": 1,
+          "allow_duplicates": true,
+          "type": "range"
+        }
+      },
+      "village": {
+        "name": "Village",
+        "default": true,
+        "0": {
+          "min": 10,
+          "max": 15,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "1": {
+          "min": 5,
+          "max": 10,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "2": {
+          "min": 3,
+          "max": 6,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "3": {
+          "min": 3,
+          "max": 6,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "4": {
+          "min": 2,
+          "max": 4,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "5": {
+          "min": 2,
+          "max": 4,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "6": {
+          "min": 1,
+          "max": 3,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "7": {
+          "min": 1,
+          "max": 2,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "8": {
+          "chance": 0.5,
+          "allow_duplicates": true,
+          "type": "chance"
+        },
+        "9": {
+          "chance": 0.1,
+          "allow_duplicates": true,
+          "type": "chance"
+        }
+      },
+      "roadside_stall": {
+        "name": "Roadside Stall",
+        "default": true,
+        "0": {
+          "min": 5,
+          "max": 8,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "1": {
+          "min": 3,
+          "max": 5,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "2": {
+          "min": 2,
+          "max": 4,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "3": {
+          "min": 1,
+          "max": 3,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "4": {
+          "min": 1,
+          "max": 2,
+          "allow_duplicates": true,
+          "type": "range"
+        },
+        "5": {
+          "chance": 0.5,
+          "allow_duplicates": true,
+          "type": "chance"
+        },
+        "6": {
+          "chance": 0.2,
+          "allow_duplicates": true,
+          "type": "chance"
+        },
+        "7": {
+          "chance": 0.1,
+          "allow_duplicates": true,
+          "type": "chance"
+        },
+        "8": {
+          "chance": 0.05,
+          "allow_duplicates": true,
+          "type": "chance"
+        },
+        "9": {
+          "chance": 0.01,
+          "allow_duplicates": true,
+          "type": "chance"
         }
       }
     }

@@ -17,6 +17,11 @@ export function getCompendiumsOfType(compendiumType) {
     return packsToReturn;
 }
 
+/**
+ * A helper function to just return a list of rarities
+ * @param shopType
+ * @returns {{uncommon: string, common: string, legendary: string, rare: string, veryrare: string}|{"0": string, "1": string, "2": string, "3": string, "4": string, "5": string, "6": string, "7": string, "8": string, "9": string}}
+ */
 export function getRarities(shopType) {
     if (shopType === "spell") {
         return Constants.spellLevels;

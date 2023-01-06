@@ -5,6 +5,9 @@ import {generateValidPresetObjectFromForm} from "./utils/generator_utils.js";
 import {generateItemShop} from "./generator.js";
 
 export class ShopGenerator extends FormApplication {
+
+    TYPE_REGEX = /([\S\d_]+)-type-(range|chance)/g;
+
     /**
      * @override
      */
@@ -31,7 +34,7 @@ export class ShopGenerator extends FormApplication {
         const values = {
             preset: RuntimeValues.selectedPreset,
             presetID: RuntimeValues.selectedPresetID,
-            validShopTypes: Constants.validShopTypes,
+            validShopTypes: RuntimeValues.validShopTypes,
             shopType: RuntimeValues.selectedShopType,
             validPresets: RuntimeValues.validPresets,
             spellLevels: Constants.spellLevels,
@@ -41,12 +44,29 @@ export class ShopGenerator extends FormApplication {
     }
 
     async _handleButtonClick(event) {
-        const selectedElement = $(event.currentTarget);
-        const selectedValue = selectedElement[0].value;
-        if (selectedElement[0].id == "generate") { // If the generate button is clicked
+        const selectedID = $(event.currentTarget)[0].id;
+        if (selectedID === "generate") { // If the generate button is clicked
             const shopSettings = generateValidPresetObjectFromForm($("#shopType").val());
             await generateItemShop(shopSettings, $("#shopType").val());
+        } else if (String(selectedID).includes("-type-")) {
+            const shopSettings = generateValidPresetObjectFromForm($("#shopType").val());
+            console.log($(event.currentTarget).val())
+            const splitted = selectedID.split("-");
+            console.log(shopSettings[splitted[0]].chance);
+            if (shopSettings[splitted[0]].max === undefined && shopSettings[splitted[0]].type == "range") { // We know the type was changed to range
+                shopSettings[splitted[0]].min = 1;
+                shopSettings[splitted[0]].max = 1;
+                shopSettings[splitted[0]].allow_duplicates = true;
+            } else if (shopSettings[splitted[0]].chance === undefined && shopSettings[splitted[0]].type == "chance") { // We know the type was changed to chance
+                shopSettings[splitted[0]].allow_duplicates = true;
+                shopSettings[splitted[0]].chance = 1.00;
+            }
+            RuntimeValues.selectedPreset = shopSettings;
+            console.error(shopSettings);
+            this.render();
+            return;
         }
+        console.error("Why are we here?");
     }
 
     async _handleSelect(event) {
