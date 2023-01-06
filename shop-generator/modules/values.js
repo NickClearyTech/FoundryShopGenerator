@@ -6,7 +6,7 @@ export class Constants {
 
     static VERSION_NUMBER = "0.0.1";
 
-    static playerFlag = "shop_presents";
+    static playerFlag = "shop_presets";
 
     static valid_compendium_types = [
         "actor",
@@ -37,8 +37,6 @@ export class Constants {
     };
 
     static validLogSeverities = ["log", "warn", "error", "info"];
-
-    static validShopTypes = ["spell", "potion", "magic_item", "equipment"];
 
     static validShopTypes = {
         "spell": {
@@ -90,4 +88,6 @@ export class RuntimeValues {
     static selectedPreset = null;
     static validPresets = null;
     static selectedPresetID = null;
+
+    static validShopTypes = {}
 }

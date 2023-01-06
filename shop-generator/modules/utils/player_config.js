@@ -10,12 +10,12 @@ export async function setDefaultPresets() {
     let playerFlagData = game.users.current.getFlag(Constants.MODULE_ID, Constants.playerFlag);
     // If the player does not have the data flagged, set it as the raw json data.
     if (playerFlagData === undefined || playerFlagData === {} || playerFlagData === null) {
-        game.users.current.setFlag(Constants.MODULE_ID, Constants.playerFlag, jsonData);
+        await game.users.current.setFlag(Constants.MODULE_ID, Constants.playerFlag, jsonData);
         return;
     }
     // This supports "updating" the default presets
     // Only done if the version in the player flag is out of date
-    if (playerFlagData["version"] != jsonData["version"]) {
+    if (playerFlagData["version"] !== jsonData["version"]) {
         // Iterate through each type of shop (potion, magic item, etc)
         for (const shopType of Object.keys(jsonData.presets)) {
             if (playerFlagData.presets[shopType] === undefined) {
@@ -23,7 +23,7 @@ export async function setDefaultPresets() {
             }
             // Iterate through each of the default presets and update
             for (const preset of Object.keys(jsonData.presets[shopType])) {
-                playerFlagData.presets[shopType][preset] = jsonData[shopType][preset];
+                playerFlagData.presets[shopType][preset] = jsonData.presets[shopType][preset];
             }
         }
         playerFlagData["version"] = jsonData["version"];

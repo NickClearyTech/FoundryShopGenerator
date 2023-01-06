@@ -14,7 +14,7 @@ function shuffleArray(array) {
 A simple function to get a random integer between two numbers (min included, max excluded)
  */
 export function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
+    return Math.floor(Math.random() * (parseInt(max) - parseInt(min))) + parseInt(min);
 }
 
 /*
@@ -42,7 +42,7 @@ Duplicates are not allowed. If the numItems is larger than the number of possibl
 export function getRandomItemsWithoutDuplication(itemArray, numItems) {
     // Warn if more items are requested than exist
     if (itemArray.length > numItems) {
-        uiLogging(`Length of item array is ${itemArray.length} less than the number of items requested, ${numItems}`, "warn")
+        uiLogging(`Length of item array is ${itemArray.length} less than the number of items requested, ${numItems}`, "warn");
     }
     // Get the random list of items, then convert to an object containing the items, each having a quantity of 1
     const itemsList = shuffleArray(itemArray);

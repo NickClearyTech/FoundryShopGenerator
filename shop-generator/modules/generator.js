@@ -4,6 +4,7 @@ import {getRandomInt, getRandomItemsWithDuplicates, getRandomItemsWithoutDuplica
 import { getRarities } from "./utils/compendium_utils.js";
 
 export async function generateItemShop(shopSettings, type) {
+    console.error(shopSettings);
     // Initialize the chat message
     let chatMessage = "<h1>Shop Contents</h1>";
     // Get the compendium's contents as a map of rarities to arrays of items
