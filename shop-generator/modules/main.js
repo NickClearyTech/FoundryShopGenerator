@@ -20,7 +20,7 @@ Hooks.on("renderItemDirectory", (itemDirectory, html) => {
     html.on("click", ".shop-generator-icon-button", (event) => {
         if (checkSettingsDefined()) {
             const shopgen = new ShopGenerator();
-            shopgen.render(true, {width: (window.innerWidth/4)});
+            shopgen.render(true, {width: (window.innerWidth/3)});
         } else {
             uiLogging("Please configure settings for module before using shop gen", "error")
         }
