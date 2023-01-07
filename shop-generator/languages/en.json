@@ -19,7 +19,7 @@
             },
             "price_override": {
                 "name": "Price Overrides",
-                "hint": "Specify a valid JSON string containing price overrides. See <here> for price override JSON string format"
+                "hint": "Specify a valid JSON string containing price overrides. See module documentation for price override JSON string format"
             }
         },
         "UI": {
