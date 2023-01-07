@@ -37,6 +37,18 @@
             </div>
         </div>
     {{/if}}
+    <br/>
+
+    {{#if presetID }}
+        <div class="flexrow">
+            <div class="flexcol">
+                <label for="preset-name">Preset Name:</label>
+            </div>
+            <div class="flexcol">
+                <input type="text" id="preset-name" name="preset-name" value="{{ presetName }}">
+            </div>
+        </div>
+    {{/if}}
 
     {{# each preset }} {{! He we are iterating through the individual fields of the preset. Really wish there was a more explicit way to say this in handlebars }}
         <div class="flexrow">
@@ -48,11 +60,7 @@
                 {{/if}}
             </div>
         </div>
-<!--        <div class="flexrow">-->
-<!--            <div class="flexcol">-->
-<!--                <h6 class="centered">Type</h6>-->
-<!--            </div>-->
-<!--        </div>-->
+
         <div class="flexrow"> {{! Handle the radio buttons for chance vs range }}
             <div class="flexcol">
                 {{#if (eq type "range") }}
@@ -71,38 +79,45 @@
                 <label for="{{ preset }}-type-range" class="centered">Chance</label>
             </div>
         </div>
+
         {{#if (eq type "range") }} {{! Handle rendering the range options }}
             <div class="flexrow">
-                <div class="flexcol">
+                <div class="flexcol centered">
                     <label for="{{ @key }}-range-min">Min:</label>
                     <input type="number" id="{{ @key }}-range-min" name="{{ @key }}-range-min" value="{{ min }}" min="0" data-action="min">
                 </div>
-                <div class="flexcol">
+                <div class="flexcol centered">
                     <label for="{{ @key }}-range-max">Max:</label>
                     <input type="number" id="{{ @key }}-range-max" name="{{ @key }}-range-max" value="{{ max }}" min="0" data-action="max">
                 </div>
-                <div class="flexcol"> {{! Here we handle if a specific rarity allows duplicates }}
+                <div class="flexcol centered"> {{! Here we handle if a specific rarity allows duplicates }}
                     {{#if allow_duplicates }}
-                        <input type="checkbox" id="{{ @key }}-range-allow-duplicates" name="{{ @key }}-range-allow-duplicates" value="{{ @key }}-range-allow-duplicates" data-action="allow-duplicates" checked>
+                    <input type="checkbox" id="{{ @key }}-range-allow-duplicates" name="{{ @key }}-range-allow-duplicates" value="{{ @key }}-range-allow-duplicates" data-action="allow-duplicates" checked>
                     {{ else }}
-                        <input type="checkbox" id="{{ @key }}-range-allow-duplicates" name="{{ @key }}-range-allow-duplicates" value="{{ @key }}-range-allow-duplicates" data-action="allow-duplicates">
+                    <input type="checkbox" id="{{ @key }}-range-allow-duplicates" name="{{ @key }}-range-allow-duplicates" value="{{ @key }}-range-allow-duplicates" data-action="allow-duplicates">
                     {{/if}}
                     <label for="{{ @key }}-range-allow-duplicates">Allow duplicates?</label>
                 </div>
             </div>
         {{ else }}
             <div class="flexrow">
-                <div class="flexcol">
+                <div class="flexcol centered">
                     <label for="{{ @key }}-chance">Chance of 1 of this rarity item (0-1.00)</label>
                     <input type="number" id="{{ @key }}-chance" name="{{ @key }}-chance" min="0" max="100" data-action="chance" value="{{ chance }}">
                 </div>
             </div>
         {{/if}}
-
+    <br />
     {{/each}}
 
     {{# if presetID}}
-    <br />
-    <button type="button" data-action="generate" id="generate">Generate</button>
+        <div class="flexrow">
+            <div class="flexcol">
+                <button type="button" data-action="save" id="save">Save Preset</button>
+            </div>
+            <div class="flexcol">
+                <button type="button" data-action="generate" id="generate">Generate</button>
+            </div>
+        </div>
     {{/if}}
 </form>

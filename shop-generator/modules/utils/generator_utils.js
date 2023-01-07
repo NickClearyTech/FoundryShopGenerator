@@ -77,6 +77,7 @@ export function generateValidPresetObjectFromForm(shopType) {
     } else {
         iterator = Object.keys(Constants.rarities);
     }
+    preset["name"] = $("#preset-name").val();
     for (const level of iterator) {
         const isChance = $(`#${level}-type-chance`).is(":checked");
         preset[level] = {}

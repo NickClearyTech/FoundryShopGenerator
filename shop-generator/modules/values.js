@@ -88,6 +88,7 @@ export class RuntimeValues {
     static selectedPreset = null;
     static validPresets = null;
     static selectedPresetID = null;
+    static selectedPresetName = null;
 
     static validShopTypes = {}
 }

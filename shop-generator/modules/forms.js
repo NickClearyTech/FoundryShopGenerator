@@ -1,8 +1,8 @@
 import {Constants, RuntimeValues} from "./values.js";
-import {getValidPresetsOfType, getPreset} from "./utils/presets.js";
-import {consoleLogging} from "./utils/logging.js";
+import {getPreset, getValidPresetsOfType, getPresetByName, setPlayerPresets} from "./utils/presets.js";
 import {generateValidPresetObjectFromForm} from "./utils/generator_utils.js";
 import {generateItemShop} from "./generator.js";
+import {uiLogging} from "./utils/logging.js";
 
 export class ShopGenerator extends FormApplication {
 
@@ -23,8 +23,7 @@ export class ShopGenerator extends FormApplication {
             title: "Shop Generator",
             userId: game.userId,
         };
-        const mergedOptions = foundry.utils.mergeObject(defaults, overrides);
-        return mergedOptions;
+        return foundry.utils.mergeObject(defaults, overrides);
     }
 
     /**
@@ -34,6 +33,7 @@ export class ShopGenerator extends FormApplication {
         const values = {
             preset: RuntimeValues.selectedPreset,
             presetID: RuntimeValues.selectedPresetID,
+            presetName: RuntimeValues.selectedPresetName,
             validShopTypes: RuntimeValues.validShopTypes,
             shopType: RuntimeValues.selectedShopType,
             validPresets: RuntimeValues.validPresets,
@@ -50,23 +50,32 @@ export class ShopGenerator extends FormApplication {
             await generateItemShop(shopSettings, $("#shopType").val());
         } else if (String(selectedID).includes("-type-")) {
             const shopSettings = generateValidPresetObjectFromForm($("#shopType").val());
-            console.log($(event.currentTarget).val())
             const splitted = selectedID.split("-");
-            console.log(shopSettings[splitted[0]].chance);
-            if (shopSettings[splitted[0]].max === undefined && shopSettings[splitted[0]].type == "range") { // We know the type was changed to range
+            if (shopSettings[splitted[0]].max === undefined && shopSettings[splitted[0]].type === "range") { // We know the type was changed to range
                 shopSettings[splitted[0]].min = 1;
                 shopSettings[splitted[0]].max = 1;
                 shopSettings[splitted[0]].allow_duplicates = true;
-            } else if (shopSettings[splitted[0]].chance === undefined && shopSettings[splitted[0]].type == "chance") { // We know the type was changed to chance
-                shopSettings[splitted[0]].allow_duplicates = true;
-                shopSettings[splitted[0]].chance = 1.00;
+            } else if (shopSettings[splitted[0]].chance === undefined && shopSettings[splitted[0]].type === "chance") { // We know the type was changed to chance
+                shopSettings[splitted[0]].allow_duplicates = false;
+                shopSettings[splitted[0]].chance = 0.5;
             }
             RuntimeValues.selectedPreset = shopSettings;
-            console.error(shopSettings);
             this.render();
-            return;
+        } else if (String(selectedID) === "save") {
+            const shopSettings = generateValidPresetObjectFromForm($("#shopType").val());
+            let playerFlagData = game.users.current.getFlag(Constants.MODULE_ID, Constants.playerFlag);
+            const existingPreset = getPresetByName(RuntimeValues.selectedShopType, $("#preset-name").val());
+            if (existingPreset === null) { // If not, we can just create the new preset and add it to the player's flag
+                playerFlagData["presets"][RuntimeValues.selectedShopType][$("#preset-name").val()] = shopSettings;
+            } else {
+                if (existingPreset.default) {
+                    uiLogging(`Unable to overwrite existing preset with name ${$("#preset-name").val()}, as it is a default preset`, "warn");
+                    return
+                }
+                playerFlagData["presets"][RuntimeValues.selectedShopType][$("#preset-name").val()] = shopSettings;
+            }
+            await setPlayerPresets(playerFlagData);
         }
-        console.error("Why are we here?");
     }
 
     async _handleSelect(event) {
@@ -96,6 +105,7 @@ export class ShopGenerator extends FormApplication {
             if (selectedValue === "") {
                 RuntimeValues.selectedPreset = null;
                 RuntimeValues.selectedPresetID = null;
+                RuntimeValues.selectedPresetName = null;
                 this.render();
                 return;
             }
@@ -105,7 +115,8 @@ export class ShopGenerator extends FormApplication {
             }
             // Set all values
             RuntimeValues.selectedPresetID = selectedValue;
-            RuntimeValues.selectedPreset = getPreset(RuntimeValues.selectedShopType, selectedValue);
+            RuntimeValues.selectedPresetName = getPreset(RuntimeValues.selectedShopType, selectedValue, false).name;
+            RuntimeValues.selectedPreset = getPreset(RuntimeValues.selectedShopType, selectedValue, true);
             this.render();
         }
     }
