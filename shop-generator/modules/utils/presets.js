@@ -14,15 +14,36 @@ export function getValidPresetsOfType(type) {
     return presets;
 }
 
+export async function setPlayerPresets(flagData) {
+    await game.users.current.setFlag(Constants.MODULE_ID, Constants.playerFlag, flagData);
+}
+
+export function getPresetByName(type, name) {
+    const flagData = game.users.current.getFlag(Constants.MODULE_ID, Constants.playerFlag)["presets"][type];
+    for (const presetKey of Object.keys(flagData)) {
+        if (flagData[presetKey]["name"] === name) {
+            return flagData[presetKey];
+        }
+    }
+    return null;
+}
+
+export function presetExist(type, presetID) {
+    return Object.keys(game.users.current.getFlag(Constants.MODULE_ID, Constants.playerFlag)["presets"][type]).includes(presetID);
+}
+
 /**
  * A helper function that returns the specified preset as an object
  * @param type Shop Type
  * @param presetID The ID of the preset to be returned
+ * @param removeFields Boolean of whether to remove name and default fields
  * @returns {{Object} Preset object
  */
-export function getPreset(type, presetID) {
-    let preset = game.users.current.getFlag(Constants.MODULE_ID, Constants.playerFlag)["presets"][type][presetID];
-    delete preset.name; // We delete the "name" key because it's useless in terms of rendering our options
-    delete preset.default; // Same thing with the "default" attribute
+export function getPreset(type, presetID, removeFields) {
+    let preset = JSON.parse(JSON.stringify(game.users.current.getFlag(Constants.MODULE_ID, Constants.playerFlag)["presets"][type][presetID]));
+    if (removeFields) {
+        delete preset.name; // We delete the "name" key because it's useless in terms of rendering our options
+        delete preset.default; // Same thing with the "default" attribute
+    }
     return preset;
 }

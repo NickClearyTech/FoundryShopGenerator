@@ -10,10 +10,6 @@
     line-height: normal;
 }
 
-.shop-generator-pop-up-grid{
-
-}
-
 .shop-gen {
     gap: 1em;
     margin-top: 0;
@@ -22,4 +18,13 @@
 
 .centered {
     text-align: center;
+    position: relative;
+}
+
+input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    position: relative;
+    bottom: 1px;
 }
