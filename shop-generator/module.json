@@ -28,6 +28,8 @@
   "styles": [
     "styles/shop-gen.css"
   ],
+  "download": "https://github.com/NickClearyTech/FoundryShopGenerator/releases/latest/download/module.zip",
+  "manifest": "https://github.com/NickClearyTech/FoundryShopGenerator/releases/latest/download/module.json",
   "name": "Nickle's Shop Generator",
   "minimumCoreVersion": "10",
   "author": "Nick Cleary"
