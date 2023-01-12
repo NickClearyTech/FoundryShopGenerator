@@ -17,7 +17,6 @@ export async function mapCompendiumContentsToRarity(compendiumName, shopType) {
             hasWarnings = true;
             continue
         }
-        console.error(item);
         const rarity = item.system[rarityOrLevel].toString().toLowerCase();
         if (rarity === "artifact") {
             consoleLogging(`${item.name} is an artifact, skipping`, "warn");

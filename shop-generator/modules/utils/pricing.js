@@ -118,8 +118,8 @@ export function getObjectPrice(item, type) {
         }
     }
     // If the price override isn't valid or the price doesn't exist, then we try to return item price
-    if (item.system.price !== null) {
-        return item.system.price;
+    if (item.system.price.value !== null && item.system.price.value !== 0) {
+        return item.system.price.value;
     }
     // If the price is null, then return -1 to signify we don't have a price
     return -1
