@@ -13,6 +13,7 @@ export async function mapCompendiumContentsToRarity(compendiumName, shopType) {
         // Check the rarity is not an empty string
         if (!item.system[rarityOrLevel].toString().toLowerCase()) {
             consoleLogging(`${item.name} does not have a ${rarityOrLevel}`, "error");
+            continue
         }
         // We've gotta convert to string here just to prevent issues with the fact that spell levels are an integer
         itemMap.get(item.system[rarityOrLevel].toString().toLowerCase()).push(item);
