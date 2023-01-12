@@ -41,7 +41,7 @@ Duplicates are not allowed. If the numItems is larger than the number of possibl
  */
 export function getRandomItemsWithoutDuplication(itemArray, numItems) {
     // Warn if more items are requested than exist
-    if (itemArray.length > numItems) {
+    if (itemArray.length < numItems) {
         uiLogging(`Length of item array is ${itemArray.length} less than the number of items requested, ${numItems}`, "warn");
     }
     // Get the random list of items, then convert to an object containing the items, each having a quantity of 1
