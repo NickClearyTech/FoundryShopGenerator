@@ -10,10 +10,10 @@
   "esmodules": [
     "modules/main.js"
   ],
-  "version": "1.0.4",
+  "version": "2.0.0",
   "compatibility": {
-    "minimum": "9",
-    "verified": "10"
+    "minimum": "11",
+    "verified": "11"
   },
   "relationships": {
     "id": "dnd5e"

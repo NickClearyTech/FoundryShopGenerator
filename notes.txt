@@ -1,0 +1,8 @@
+const newFile = new File([JSON.stringify(data], `filename.json`, { type: "application/json" });
+await FilePicker.upload("data", "modules/module-id/storage/", newFile, {});
+
+try{
+        console.log(await foundry.utils.fetchJsonWithTimeout("/modules/shop-generator/storage/thingy2.json"));
+    } catch (HttpError) {
+        console.log("Big sad")
+    }
